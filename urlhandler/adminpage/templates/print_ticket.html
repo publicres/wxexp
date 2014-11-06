@@ -1,0 +1,56 @@
+{% extends "activity_base.html" %}
+
+{% load staticfiles %}
+
+{% block css %}
+    <link href="{% static "css/ticket_detail.css" %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block nav-li %}
+    <li class="active">
+        <a>点击浏览器“打印”打印电子票</a>
+    </li>
+{% endblock %}
+
+{% block username %}
+    <a href={% url "adminpage.views.order_logout" %} >登出</a>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="ticket">
+            <h3 style="text-align: center">
+                {{ activity.name }}
+            </h3>
+            <div style="text-align: center">
+                <img  id="qrcode" src={{ qr_addr }}>
+            </div>
+            <div>
+                <p>
+                    学号：{{ stu_id }}
+                </p>
+                <p>
+                    开始时间：{{ activity.start_time|date:"Y年m月d日 H：i" }}
+                </p>
+                <p>
+                    结束时间：{{ activity.end_time|date:"Y年m月d日 H：i" }}
+                </p>
+                <p>
+                    地点：{{ activity.place }}
+                </p>
+                <p>
+                    座位:
+                    {% if activity.seat %}
+                        {{ activity.seat }}
+                    {% else %}
+                        未指定
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static "lib/jq/jquery-1.10.2.min.js" %}"></script>
+{% endblock %}
